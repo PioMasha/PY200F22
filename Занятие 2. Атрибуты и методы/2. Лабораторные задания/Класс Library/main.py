@@ -12,10 +12,35 @@ BOOKS_DATABASE = [
 ]
 
 
-# TODO написать класс Book
+class Book:
+    def __init__(self, id_, name, pages):
+        self.id = id_
+        self.name = name
+        self.pages = pages
+
+    def __str__(self):
+        return f'Книга "{self.name}"'
 
 
-# TODO написать класс Library
+class Library:
+    def __init__(self, books=None):
+        if books is None:
+            self.books = []
+        else:
+            self.books = books
+
+    def get_next_book_id(self):
+        if not self.books:
+            return 1
+        else:
+            last_book = self.books[-1]
+            return last_book.id + 1
+
+    def get_index_by_book_id(self, book_id):
+        for i, book in enumerate(self.books):
+            if book.id == book_id:
+                return i
+        raise ValueError("Книги с запрашиваемым id не существует")
 
 
 if __name__ == '__main__':
